@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console.default" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} %p [%t] [%c{1}(%M:%L)] - %m%n" charset="UTF-8"/>
+        </Console>
+        <RollingFile name="file.default" fileName="logs/poker-helper-gui.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{HH:mm:ss} %p [%t] [%c{1}(%M:%L)] - %m%n" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="console.default"/>
+            <AppenderRef ref="file.default"/>
+        </Root>
+    </Loggers>
+</Configuration>
