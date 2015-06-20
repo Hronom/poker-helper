@@ -3,6 +3,8 @@ package org.bitbucket.hronom.poker.helper.core.cards.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.PokerHand;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.RoyalFlush;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class CardsUtils {
     private static final Logger logger = LogManager.getLogger();
 
     public static void printToFileCombinations(
-        ArrayList<Card> cards, Path filePath, Charset charset
+        ArrayList<Card> cards, PokerHand pokerHand, Path filePath, Charset charset
     ) throws IOException {
         int categoriesSize = cards.size();
         int categoriesProcessed = 0;
@@ -48,7 +50,12 @@ public class CardsUtils {
                                                 combination[2] = cards.get(index3);
                                                 combination[3] = cards.get(index4);
                                                 combination[4] = cards.get(index5);
-                                                printWriter.println(Arrays.toString(combination));
+
+                                                if (pokerHand
+                                                    .isAcceptableCombination(combination)) {
+                                                    printWriter
+                                                        .println(Arrays.toString(combination));
+                                                }
                                             }
                                         }
                                     }
@@ -74,6 +81,8 @@ public class CardsUtils {
         int categoriesSize = cards.size();
         int categoriesProcessed = 0;
         int percentCompleted = -1;
+
+        RoyalFlush royalFlush = new RoyalFlush();
 
         for (int index1 = 0; index1 < cards.size(); index1++) {
             for (int index2 = 0; index2 < cards.size(); index2++) {

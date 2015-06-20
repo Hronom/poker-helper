@@ -6,13 +6,15 @@ import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
 import org.bitbucket.hronom.poker.helper.core.cards.utils.CardsUtils;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.FourOfKind;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.FullHouse;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.RoyalFlush;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.StraightFlush;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * Created by hronom on 14.06.15.
@@ -31,13 +33,13 @@ public class PokerHelperCoreMain {
         for (Card card : cards) {
             System.out.println(card);
         }
-//
-//        Properties prop = new Properties();
-//        prop.put("connection.driver_class", "org.h2.Driver");
-//        prop.put("hibernate.connection.url", "jdbc:h2:./db/repository");
-//        prop.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-//        prop.put("hibernate.hbm2ddl.auto", "create-drop");
-//        prop.put("hibernate.show_sql", "true");
+        //
+        //        Properties prop = new Properties();
+        //        prop.put("connection.driver_class", "org.h2.Driver");
+        //        prop.put("hibernate.connection.url", "jdbc:h2:./db/repository");
+        //        prop.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        //        prop.put("hibernate.hbm2ddl.auto", "create-drop");
+        //        prop.put("hibernate.show_sql", "true");
 
       /*  EntityManagerFactory factory = Persistence
             .createEntityManagerFactory("thePersistenceUnit");
@@ -50,6 +52,22 @@ public class PokerHelperCoreMain {
 
         Card c = (Card) theManager.find(Card.class, 1);*/
 
-        System.out.println(String.valueOf(CardsUtils.countCombinations(cards)));
+        //System.out.println(String.valueOf(CardsUtils.countCombinations(cards)));
+        try {
+            /*CardsUtils.printToFileCombinations(
+                cards, new RoyalFlush(), Paths.get("royal_flush_combinations.txt"), Charset.forName("UTF-8")
+            );
+            CardsUtils.printToFileCombinations(
+                cards, new StraightFlush(), Paths.get("straight_flush_combinations.txt"), Charset.forName("UTF-8")
+            );*/
+            /*CardsUtils.printToFileCombinations(
+                cards, new FourOfKind(), Paths.get("four_of_kind_combinations.txt"), Charset.forName("UTF-8")
+            );*/
+            CardsUtils.printToFileCombinations(
+                cards, new FullHouse(), Paths.get("full_house_combinations.txt"), Charset.forName("UTF-8")
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
