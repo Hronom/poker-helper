@@ -2,7 +2,6 @@ package org.bitbucket.hronom.game.cards.gui;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bitbucket.hronom.game.cards.gui.mvc.views.MainView;
 
 import javax.swing.*;
 import javax.swing.event.TreeModelListener;
@@ -12,11 +11,11 @@ import javax.swing.tree.TreePath;
 public class PokerHelperGuiMain {
     private static final Logger logger = LogManager.getLogger();
 
-    private final MainView mainView;
+    //private final MainView mainView;
     private final String propertiesFileName = "game-cards-editor.properties";
 
     public PokerHelperGuiMain() {
-        mainView = new MainView();
+        //mainView = new MainView();
     }
 
     public static void main(String args[]) {
@@ -61,7 +60,6 @@ public class PokerHelperGuiMain {
 
             }
         };
-
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

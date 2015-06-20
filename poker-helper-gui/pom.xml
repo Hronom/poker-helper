@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.bitbucket.hronom</groupId>
-            <artifactId>game-cards-core</artifactId>
+            <artifactId>poker-helper-core</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
