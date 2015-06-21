@@ -7,30 +7,55 @@ import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
 import org.bitbucket.hronom.poker.helper.core.cards.utils.CardsUtils;
 import org.bitbucket.hronom.poker.helper.core.db.H2Manager;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.Flush;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.FourOfKind;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.FullHouse;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.HighCard;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.OnePair;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.PokerHand;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.RoyalFlush;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.Straight;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.StraightFlush;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.ThreeOfKind;
+import org.bitbucket.hronom.poker.helper.core.poker.hands.TwoPair;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  * Created by hronom on 14.06.15.
  */
 public class PokerHelperCoreMain {
-    private static final Logger logger = LogManager.getLogger();
+    private final Logger logger = LogManager.getLogger();
+    private final ArrayList<PokerHand> pokerHands = new ArrayList<>();
 
-    public static void main(String args[]) {
-        //testCardsGeneration();
-        testHibernate();
+    public PokerHelperCoreMain() {
+        pokerHands.add(new RoyalFlush());
+        pokerHands.add(new StraightFlush());
+        pokerHands.add(new FourOfKind());
+        pokerHands.add(new FullHouse());
+        pokerHands.add(new Flush());
+        pokerHands.add(new Straight());
+        pokerHands.add(new ThreeOfKind());
+        pokerHands.add(new TwoPair());
+        pokerHands.add(new OnePair());
+        pokerHands.add(new HighCard());
     }
 
-    private static void testCardsGeneration() {
+    public static void main(String args[]) {
+        PokerHelperCoreMain pokerHelperCoreMain = new PokerHelperCoreMain();
+        pokerHelperCoreMain.run();
+    }
+
+    public void run() {
+        //testCardsGeneration();
+        testCombinationsForAvailableCards();
+        //testHibernate();
+    }
+
+    private void testCardsGeneration() {
         ArrayList<Card> cards = new ArrayList<>();
         for (CardSuitType suitType : CardSuitType.values()) {
             for (CardDenominationType denominationType : CardDenominationType.values()) {
@@ -64,7 +89,27 @@ public class PokerHelperCoreMain {
         }
     }
 
-    private static void testHibernate() {
+    private void testCombinationsForAvailableCards() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for (CardSuitType suitType : CardSuitType.values()) {
+            for (CardDenominationType denominationType : CardDenominationType.values()) {
+                cards.add(new Card(suitType, denominationType));
+            }
+        }
+
+        ArrayList<Card> availableCards = new ArrayList<>();
+        availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.ACE));
+        availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.KING));
+
+        for (PokerHand pokerHand : pokerHands) {
+            System.out.println(
+                pokerHand.getClass().getSimpleName() + ": " +
+                CardsUtils.countCombinationsForAvailableCards(cards, availableCards, pokerHand)
+            );
+        }
+    }
+
+    private void testHibernate() {
         H2Manager h2Manager = new H2Manager();
         h2Manager.initialize();
         /*h2Manager.fillCards();
