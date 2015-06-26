@@ -10,6 +10,11 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.utils.PokerHandsUtils;
  */
 public class RoyalFlush implements PokerHand {
     @Override
+    public int getRating() {
+        return 9;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         if (!PokerHandsUtils.checkOneSuit(cards, 5)) {
             return false;

@@ -100,12 +100,88 @@ public class PokerHelperCoreMain {
         ArrayList<Card> availableCards = new ArrayList<>();
         availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.ACE));
         availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.KING));
+        availableCards.add(new Card(CardSuitType.DIAMOND, CardDenominationType.KING));
+        {
+            for (PokerHand pokerHand : pokerHands) {
+                long count = CardsUtils.countCombinationsForAvailableCards(
+                    cards, availableCards, new ArrayList<Card>(), pokerHand
+                );
+                System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
 
-        for (PokerHand pokerHand : pokerHands) {
-            System.out.println(
-                pokerHand.getClass().getSimpleName() + ": " +
-                CardsUtils.countCombinationsForAvailableCards(cards, availableCards, pokerHand)
-            );
+                switch (pokerHand.getRating()) {
+                    case 9:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 480 + "%"
+                        );
+                        break;
+                    case 8:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 6240 + "%"
+                        );
+                        break;
+                    case 7:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 74880 +
+                            "%"
+                        );
+                        break;
+                    case 6:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 449280 +
+                            "%"
+                        );
+                        break;
+                    case 5:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 617760 +
+                            "%"
+                        );
+                        break;
+                    case 4:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 1597440 +
+                            "%"
+                        );
+                        break;
+                    case 3:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 7038720 +
+                            "%"
+                        );
+                        break;
+                    case 2:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 15275520 +
+                            "%"
+                        );
+                        break;
+                    case 1:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " +
+                            (100 * count) / 147064320 + "%"
+                        );
+                        break;
+                    case 0:
+                        System.out.println(
+                            pokerHand.getClass().getSimpleName() + ": " +
+                            (100 * count) / 311875200 + "%"
+                        );
+                        break;
+                }
+            }
+        }
+
+        System.out.println();
+
+        ArrayList<Card> excludeCards = new ArrayList<>();
+        excludeCards.addAll(availableCards);
+        {
+            for (PokerHand pokerHand : pokerHands) {
+                long count = CardsUtils.countCombinationsForAvailableCards(
+                    cards, new ArrayList<Card>(), excludeCards, pokerHand
+                );
+                System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
+            }
         }
     }
 

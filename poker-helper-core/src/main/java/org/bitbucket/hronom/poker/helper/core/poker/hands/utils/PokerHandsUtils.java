@@ -26,7 +26,7 @@ public final class PokerHandsUtils {
                 }
             }
 
-            if (countOfCards + 1 == countOfOneSuitCards) {
+            if (countOfCards == countOfOneSuitCards - 1) {
                 return true;
             }
         }
@@ -49,7 +49,7 @@ public final class PokerHandsUtils {
                 }
             }
 
-            if (countOfCards + 1 == countOfOneDenominationCards) {
+            if (countOfCards == countOfOneDenominationCards - 1) {
                 return true;
             }
         }

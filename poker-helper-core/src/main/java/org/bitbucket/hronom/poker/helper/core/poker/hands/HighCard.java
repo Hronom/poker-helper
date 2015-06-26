@@ -8,6 +8,11 @@ import org.bitbucket.hronom.poker.helper.core.cards.Card;
  */
 public class HighCard implements PokerHand {
     @Override
+    public int getRating() {
+        return 0;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         return true;
     }

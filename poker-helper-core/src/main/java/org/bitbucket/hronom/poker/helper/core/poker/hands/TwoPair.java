@@ -8,6 +8,11 @@ import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
  */
 public class TwoPair implements PokerHand {
     @Override
+    public int getRating() {
+        return 2;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         if (!checkCards(cards)) {
             return false;
@@ -34,9 +39,9 @@ public class TwoPair implements PokerHand {
                 }
             }
 
-            if (countOfCards == 1 && firstCardDenominationType == null) {
+            if (countOfCards >= 1 && firstCardDenominationType == null) {
                 firstCardDenominationType = currentCard.denominationType;
-            } else {
+            } else if (countOfCards >= 1 && firstCardDenominationType != null) {
                 return true;
             }
         }

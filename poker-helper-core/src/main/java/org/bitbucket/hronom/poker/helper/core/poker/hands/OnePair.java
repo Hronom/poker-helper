@@ -8,6 +8,11 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.utils.PokerHandsUtils;
  */
 public class OnePair implements PokerHand {
     @Override
+    public int getRating() {
+        return 1;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         if (!PokerHandsUtils.checkOneDenomination(cards, 2)) {
             return false;

@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Created by hronom on 20.06.15.
@@ -122,7 +123,10 @@ public class CardsUtils {
     }
 
     public static long countCombinationsForAvailableCards(
-        ArrayList<Card> cards, ArrayList<Card> availableCards, PokerHand pokerHand
+        ArrayList<Card> cards,
+        ArrayList<Card> availableCards,
+        ArrayList<Card> excludeCards,
+        PokerHand pokerHand
     ) {
         long countOfCombinations = 0;
 
@@ -141,25 +145,36 @@ public class CardsUtils {
         int start5 = availableCards.size() > 4 ? getIndex(cards, availableCards.get(4)) : 0;
         int size5 = availableCards.size() > 4 ? start5 + 1 : cards.size();
 
-        for (int index1 = start1; index1 < size1; index1++) {
-            for (int index2 = start2; index2 < size2; index2++) {
-                if (index1 != index2) {
-                    for (int index3 = start3; index3 < size3; index3++) {
-                        if (index1 != index3 && index2 != index3) {
-                            for (int index4 = start4; index4 < size4; index4++) {
-                                if (index1 != index4 && index2 != index4 && index3 != index4) {
-                                    for (int index5 = start5; index5 < size5; index5++) {
-                                        if (index1 != index5 && index2 != index5 &&
-                                            index3 != index5 && index4 != index5) {
-                                            Card combination[] = new Card[5];
-                                            combination[0] = cards.get(index1);
-                                            combination[1] = cards.get(index2);
-                                            combination[2] = cards.get(index3);
-                                            combination[3] = cards.get(index4);
-                                            combination[4] = cards.get(index5);
+        HashSet<Integer> skipIndexes = new HashSet<>();
+        for (Card cardToSkip : excludeCards) {
+            skipIndexes.add(getIndex(cards, cardToSkip));
+        }
 
-                                            if (pokerHand.isAcceptableCombination(combination)) {
-                                                countOfCombinations++;
+        for (int index1 = start1; index1 < size1; index1++) {
+            if (!skipIndexes.contains(index1)) {
+                for (int index2 = start2; index2 < size2; index2++) {
+                    if (index1 != index2 && !skipIndexes.contains(index2)) {
+                        for (int index3 = start3; index3 < size3; index3++) {
+                            if (index1 != index3 && index2 != index3 &&
+                                !skipIndexes.contains(index3)) {
+                                for (int index4 = start4; index4 < size4; index4++) {
+                                    if (index1 != index4 && index2 != index4 && index3 != index4 &&
+                                        !skipIndexes.contains(index4)) {
+                                        for (int index5 = start5; index5 < size5; index5++) {
+                                            if (index1 != index5 && index2 != index5 &&
+                                                index3 != index5 && index4 != index5 &&
+                                                !skipIndexes.contains(index5)) {
+                                                Card combination[] = new Card[5];
+                                                combination[0] = cards.get(index1);
+                                                combination[1] = cards.get(index2);
+                                                combination[2] = cards.get(index3);
+                                                combination[3] = cards.get(index4);
+                                                combination[4] = cards.get(index5);
+
+                                                if (pokerHand
+                                                    .isAcceptableCombination(combination)) {
+                                                    countOfCombinations++;
+                                                }
                                             }
                                         }
                                     }

@@ -12,6 +12,11 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.utils.PokerHandsUtils;
  */
 public class Straight implements PokerHand {
     @Override
+    public int getRating() {
+        return 4;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         if (!isAcceptableCards(cards)) {
             return false;

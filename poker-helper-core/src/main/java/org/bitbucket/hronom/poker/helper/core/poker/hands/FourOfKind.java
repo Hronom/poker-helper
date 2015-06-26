@@ -9,6 +9,11 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.utils.PokerHandsUtils;
  */
 public class FourOfKind implements PokerHand {
     @Override
+    public int getRating() {
+        return 7;
+    }
+
+    @Override
     public boolean isAcceptableCombination(Card[] cards) {
         if (!PokerHandsUtils.checkOneDenomination(cards, 4)) {
             return false;
