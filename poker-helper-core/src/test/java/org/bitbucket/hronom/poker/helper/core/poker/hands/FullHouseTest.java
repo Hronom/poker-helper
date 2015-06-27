@@ -3,6 +3,7 @@ package org.bitbucket.hronom.poker.helper.core.poker.hands;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -15,11 +16,11 @@ public class FullHouseTest {
     @Test
     public void testIsAcceptableCombination1() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.HEART, CardDenominationType.D10),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10),
-            new Card(CardSuitType.SPADE, CardDenominationType.D10),
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.HEART, CardDenominationType.D8)
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8)
         };
 
         FullHouse fullHouse = new FullHouse();
@@ -29,11 +30,11 @@ public class FullHouseTest {
     @Test
     public void testIsAcceptableCombination2() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.HEART, CardDenominationType.D9),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10),
-            new Card(CardSuitType.SPADE, CardDenominationType.D10),
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.HEART, CardDenominationType.D8)
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D9),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8)
         };
 
         FullHouse fullHouse = new FullHouse();
@@ -43,11 +44,11 @@ public class FullHouseTest {
     @Test
     public void testIsAcceptableCombination3() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.HEART, CardDenominationType.D10),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10),
-            new Card(CardSuitType.SPADE, CardDenominationType.D10),
-            new Card(CardSuitType.CLUB, CardDenominationType.D10),
-            new Card(CardSuitType.HEART, CardDenominationType.D10)
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10)
         };
 
         FullHouse fullHouse = new FullHouse();

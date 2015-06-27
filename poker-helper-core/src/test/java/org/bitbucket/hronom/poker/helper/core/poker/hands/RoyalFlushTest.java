@@ -3,6 +3,7 @@ package org.bitbucket.hronom.poker.helper.core.poker.hands;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -15,11 +16,11 @@ public class RoyalFlushTest {
     @Test
     public void testIsAcceptableCombination() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.CLUB, CardDenominationType.ACE),
-            new Card(CardSuitType.CLUB, CardDenominationType.KING),
-            new Card(CardSuitType.CLUB, CardDenominationType.QUEEN),
-            new Card(CardSuitType.CLUB, CardDenominationType.JACK),
-            new Card(CardSuitType.CLUB, CardDenominationType.D10)
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.ACE),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.KING),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.QUEEN),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.JACK),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D10)
         };
 
         RoyalFlush royalFlush = new RoyalFlush();

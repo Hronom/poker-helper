@@ -8,7 +8,6 @@ import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
  */
 public final class PokerHandsUtils {
     private PokerHandsUtils() {
-
     }
 
     public static boolean checkOneSuit(Card[] cards, int countOfOneSuitCards) {

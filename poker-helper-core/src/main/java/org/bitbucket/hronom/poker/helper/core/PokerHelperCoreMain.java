@@ -5,8 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.bitbucket.hronom.poker.helper.core.cards.utils.CardsUtils;
-import org.bitbucket.hronom.poker.helper.core.db.H2Manager;
+import org.bitbucket.hronom.poker.helper.core.managers.CardsCombinationsManager;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.Flush;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.FourOfKind;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.FullHouse;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by hronom on 14.06.15.
@@ -52,21 +54,9 @@ public class PokerHelperCoreMain {
     public void run() {
         //testCardsGeneration();
         testCombinationsForAvailableCards();
-        //testHibernate();
     }
 
     private void testCardsGeneration() {
-        ArrayList<Card> cards = new ArrayList<>();
-        for (CardSuitType suitType : CardSuitType.values()) {
-            for (CardDenominationType denominationType : CardDenominationType.values()) {
-                cards.add(new Card(suitType, denominationType));
-            }
-        }
-
-        for (Card card : cards) {
-            System.out.println(card);
-        }
-
         //System.out.println(String.valueOf(CardsUtils.countCombinations(cards)));
         try {
             /*CardsUtils.printToFileCombinations(
@@ -79,7 +69,7 @@ public class PokerHelperCoreMain {
                 cards, new FourOfKind(), Paths.get("four_of_kind_combinations.txt"), Charset.forName("UTF-8")
             );*/
             CardsUtils.printToFileCombinations(
-                cards,
+                PokerDeck.cards,
                 new FullHouse(),
                 Paths.get("full_house_combinations.txt"),
                 Charset.forName("UTF-8")
@@ -90,84 +80,22 @@ public class PokerHelperCoreMain {
     }
 
     private void testCombinationsForAvailableCards() {
-        ArrayList<Card> cards = new ArrayList<>();
-        for (CardSuitType suitType : CardSuitType.values()) {
-            for (CardDenominationType denominationType : CardDenominationType.values()) {
-                cards.add(new Card(suitType, denominationType));
-            }
-        }
+        CardsCombinationsManager cardsCombinationsManager = new CardsCombinationsManager();
 
         ArrayList<Card> availableCards = new ArrayList<>();
-        availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.ACE));
-        availableCards.add(new Card(CardSuitType.CLUB, CardDenominationType.KING));
-        availableCards.add(new Card(CardSuitType.DIAMOND, CardDenominationType.KING));
+        availableCards.add(PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.ACE));
+        availableCards.add(PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.KING));
+        availableCards.add(PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.KING));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.KING));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+        //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.KING));
+        //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.ACE));
         {
             for (PokerHand pokerHand : pokerHands) {
-                long count = CardsUtils.countCombinationsForAvailableCards(
-                    cards, availableCards, new ArrayList<Card>(), pokerHand
+                AtomicLong count = cardsCombinationsManager.countCombinationsForAvailableCards(
+                    PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
-
-                switch (pokerHand.getRating()) {
-                    case 9:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 480 + "%"
-                        );
-                        break;
-                    case 8:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 6240 + "%"
-                        );
-                        break;
-                    case 7:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 74880 +
-                            "%"
-                        );
-                        break;
-                    case 6:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 449280 +
-                            "%"
-                        );
-                        break;
-                    case 5:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 617760 +
-                            "%"
-                        );
-                        break;
-                    case 4:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 1597440 +
-                            "%"
-                        );
-                        break;
-                    case 3:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 7038720 +
-                            "%"
-                        );
-                        break;
-                    case 2:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " + (100 * count) / 15275520 +
-                            "%"
-                        );
-                        break;
-                    case 1:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " +
-                            (100 * count) / 147064320 + "%"
-                        );
-                        break;
-                    case 0:
-                        System.out.println(
-                            pokerHand.getClass().getSimpleName() + ": " +
-                            (100 * count) / 311875200 + "%"
-                        );
-                        break;
-                }
             }
         }
 
@@ -177,19 +105,11 @@ public class PokerHelperCoreMain {
         excludeCards.addAll(availableCards);
         {
             for (PokerHand pokerHand : pokerHands) {
-                long count = CardsUtils.countCombinationsForAvailableCards(
-                    cards, new ArrayList<Card>(), excludeCards, pokerHand
+                AtomicLong count = cardsCombinationsManager.countCombinationsForAvailableCards(
+                    PokerDeck.cards, new ArrayList<Card>(), excludeCards, pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
             }
         }
-    }
-
-    private void testHibernate() {
-        H2Manager h2Manager = new H2Manager();
-        h2Manager.initialize();
-        /*h2Manager.fillCards();
-        h2Manager.fill();*/
-        h2Manager.debugPrint();
     }
 }

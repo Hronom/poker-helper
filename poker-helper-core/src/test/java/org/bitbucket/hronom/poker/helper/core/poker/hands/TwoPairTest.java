@@ -3,6 +3,7 @@ package org.bitbucket.hronom.poker.helper.core.poker.hands;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -15,11 +16,11 @@ public class TwoPairTest {
     @Test
     public void testIsAcceptableCombination1() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.SPADE, CardDenominationType.D8),
-            new Card(CardSuitType.HEART, CardDenominationType.D4),
-            new Card(CardSuitType.CLUB, CardDenominationType.D4),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10)
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D4),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D4),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10)
         };
 
         TwoPair twoPair = new TwoPair();
@@ -29,11 +30,11 @@ public class TwoPairTest {
     @Test
     public void testIsAcceptableCombination2() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.SPADE, CardDenominationType.D8),
-            new Card(CardSuitType.HEART, CardDenominationType.D4),
-            new Card(CardSuitType.CLUB, CardDenominationType.D5),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10)
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D4),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D5),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10)
         };
 
         TwoPair twoPair = new TwoPair();
@@ -43,11 +44,11 @@ public class TwoPairTest {
     @Test
     public void testIsAcceptableCombination3() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.CLUB, CardDenominationType.D4),
-            new Card(CardSuitType.SPADE, CardDenominationType.D8),
-            new Card(CardSuitType.HEART, CardDenominationType.D4),
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D8)
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D4),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D4),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D8)
         };
 
         TwoPair twoPair = new TwoPair();

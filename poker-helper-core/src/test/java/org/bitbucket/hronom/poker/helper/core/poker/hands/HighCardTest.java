@@ -3,6 +3,7 @@ package org.bitbucket.hronom.poker.helper.core.poker.hands;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,11 +15,11 @@ public class HighCardTest {
     @Test
     public void testIsAcceptableCombination() throws Exception {
         Card cards[] = new Card[] {
-            new Card(CardSuitType.DIAMOND, CardDenominationType.ACE),
-            new Card(CardSuitType.DIAMOND, CardDenominationType.D10),
-            new Card(CardSuitType.SPADE, CardDenominationType.D9),
-            new Card(CardSuitType.CLUB, CardDenominationType.D5),
-            new Card(CardSuitType.CLUB, CardDenominationType.D4)
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.ACE),
+            PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.D10),
+            PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D9),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D5),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D4)
         };
 
         HighCard highCard = new HighCard();

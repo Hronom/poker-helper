@@ -3,6 +3,7 @@ package org.bitbucket.hronom.poker.helper.core.poker.hands;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
+import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,11 +16,11 @@ public class StraightFlushTest {
     @Test
     public void testIsAcceptableCombination() throws Exception {
         Card cards[] = new Card[]{
-            new Card(CardSuitType.CLUB, CardDenominationType.D5),
-            new Card(CardSuitType.CLUB, CardDenominationType.D6),
-            new Card(CardSuitType.CLUB, CardDenominationType.D7),
-            new Card(CardSuitType.CLUB, CardDenominationType.D8),
-            new Card(CardSuitType.CLUB, CardDenominationType.D9)
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D5),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D6),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D7),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D9)
         };
 
         StraightFlush straightFlush = new StraightFlush();
