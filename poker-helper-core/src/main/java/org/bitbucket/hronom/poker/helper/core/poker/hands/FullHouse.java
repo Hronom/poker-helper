@@ -23,6 +23,7 @@ public class FullHouse implements PokerHand {
     }
 
     private boolean checkCards(Card[] cards) {
+        // Check two pairs
         CardDenominationType twoCardDenominationType = null;
         for (Card currentCard : cards) {
             int countOfCards = 0;
@@ -48,6 +49,7 @@ public class FullHouse implements PokerHand {
             return false;
         }
 
+        // Check three pairs
         CardDenominationType threeCardDenominationType = null;
         for (Card currentCard : cards) {
             int countOfCards = 0;

@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by hronom on 14.06.15.
@@ -53,7 +52,7 @@ public class PokerHelperCoreMain {
 
     public void run() {
         //testCardsGeneration();
-        testCombinationsForAvailableCards();
+        testCombinationsForAvailableCards2();
     }
 
     private void testCardsGeneration() {
@@ -80,19 +79,22 @@ public class PokerHelperCoreMain {
     }
 
     private void testCombinationsForAvailableCards() {
+        //long[][][][][] test = new long[311875200][][][][];
+        System.out.println("test");
+
         CardsCombinationsManager cardsCombinationsManager = new CardsCombinationsManager();
 
         ArrayList<Card> availableCards = new ArrayList<>();
-        availableCards.add(PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.ACE));
-        availableCards.add(PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.KING));
-        availableCards.add(PokerDeck.getCard(CardSuitType.DIAMOND, CardDenominationType.KING));
-        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.KING));
-        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
+        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D7));
+        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10));
+        //        availableCards.add(PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D3));
         //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.KING));
         //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.ACE));
         {
             for (PokerHand pokerHand : pokerHands) {
-                AtomicLong count = cardsCombinationsManager.countCombinationsForAvailableCards(
+                long count = cardsCombinationsManager.countCombinationsForAvailableCards3(
                     PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
@@ -105,11 +107,49 @@ public class PokerHelperCoreMain {
         excludeCards.addAll(availableCards);
         {
             for (PokerHand pokerHand : pokerHands) {
-                AtomicLong count = cardsCombinationsManager.countCombinationsForAvailableCards(
+                long count = cardsCombinationsManager.countCombinationsForAvailableCards3(
                     PokerDeck.cards, new ArrayList<Card>(), excludeCards, pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
             }
+        }
+    }
+
+    private void testCombinationsForAvailableCards2() {
+        CardsCombinationsManager cardsCombinationsManager = new CardsCombinationsManager();
+
+        ArrayList<Card> availableCards = new ArrayList<>();
+        /*availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D7));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10));
+        availableCards.add(PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D3));*/
+
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.KING));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.QUEEN));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.JACK));
+        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10));
+
+        ArrayList<Card> allCards = new ArrayList<>();
+        allCards.addAll(PokerDeck.cards);
+        allCards.removeAll(availableCards);
+
+        for (PokerHand pokerHand : pokerHands) {
+            long outs = allCards.size();
+            Card[] combinations = new Card[5];
+            combinations = availableCards.toArray(combinations);
+            if (!pokerHand.isAcceptableCombination(combinations)) {
+                outs = cardsCombinationsManager.countOutsCardsForTurn(
+                    PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                );
+            }
+
+            System.out.println(
+                pokerHand.getClass().getSimpleName() + ", outs: " + outs + ", deck: " +
+                allCards.size() + ", result: " +
+                ((double) outs / (double) allCards.size())
+            );
         }
     }
 }

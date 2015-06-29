@@ -1,6 +1,7 @@
 package org.bitbucket.hronom.poker.helper.core.poker.hands;
 
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
+import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.utils.PokerHandsUtils;
 
 /**
@@ -28,21 +29,28 @@ public class RoyalFlush implements PokerHand {
     }
 
     private boolean isAcceptableCards(Card[] cards) {
-        for (Card card : cards) {
-            if (card != null) {
-                switch (card.denominationType) {
-                    case D2:
-                    case D3:
-                    case D4:
-                    case D5:
-                    case D6:
-                    case D7:
-                    case D8:
-                    case D9:
-                        return false;
+        for (CardSuitType cardSuitType : CardSuitType.values()) {
+            int count = 0;
+            for (Card card : cards) {
+                if (card != null) {
+                    if (card.suitType == cardSuitType) {
+                        switch (card.denominationType) {
+                            case D10:
+                            case JACK:
+                            case QUEEN:
+                            case KING:
+                            case ACE:
+                                count++;
+                        }
+                    }
                 }
             }
+
+            if (count >= 5) {
+                return true;
+            }
         }
-        return true;
+
+        return false;
     }
 }
