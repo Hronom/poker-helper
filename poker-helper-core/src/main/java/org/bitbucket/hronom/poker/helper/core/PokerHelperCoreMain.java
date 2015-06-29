@@ -7,7 +7,6 @@ import org.bitbucket.hronom.poker.helper.core.cards.CardDenominationType;
 import org.bitbucket.hronom.poker.helper.core.cards.CardSuitType;
 import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.bitbucket.hronom.poker.helper.core.cards.utils.CardsUtils;
-import org.bitbucket.hronom.poker.helper.core.managers.CardsCombinationsManager;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.Flush;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.FourOfKind;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.FullHouse;
@@ -20,9 +19,6 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.StraightFlush;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.ThreeOfKind;
 import org.bitbucket.hronom.poker.helper.core.poker.hands.TwoPair;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -55,34 +51,9 @@ public class PokerHelperCoreMain {
         testCombinationsForAvailableCards2();
     }
 
-    private void testCardsGeneration() {
-        //System.out.println(String.valueOf(CardsUtils.countCombinations(cards)));
-        try {
-            /*CardsUtils.printToFileCombinations(
-                cards, new RoyalFlush(), Paths.get("royal_flush_combinations.txt"), Charset.forName("UTF-8")
-            );
-            CardsUtils.printToFileCombinations(
-                cards, new StraightFlush(), Paths.get("straight_flush_combinations.txt"), Charset.forName("UTF-8")
-            );*/
-            /*CardsUtils.printToFileCombinations(
-                cards, new FourOfKind(), Paths.get("four_of_kind_combinations.txt"), Charset.forName("UTF-8")
-            );*/
-            CardsUtils.printToFileCombinations(
-                PokerDeck.cards,
-                new FullHouse(),
-                Paths.get("full_house_combinations.txt"),
-                Charset.forName("UTF-8")
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void testCombinationsForAvailableCards() {
         //long[][][][][] test = new long[311875200][][][][];
         System.out.println("test");
-
-        CardsCombinationsManager cardsCombinationsManager = new CardsCombinationsManager();
 
         ArrayList<Card> availableCards = new ArrayList<>();
         //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
@@ -94,7 +65,7 @@ public class PokerHelperCoreMain {
         //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.ACE));
         {
             for (PokerHand pokerHand : pokerHands) {
-                long count = cardsCombinationsManager.countCombinationsForAvailableCards3(
+                long count = CardsUtils.countCombinationsForAvailableCards3(
                     PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
@@ -107,7 +78,7 @@ public class PokerHelperCoreMain {
         excludeCards.addAll(availableCards);
         {
             for (PokerHand pokerHand : pokerHands) {
-                long count = cardsCombinationsManager.countCombinationsForAvailableCards3(
+                long count = CardsUtils.countCombinationsForAvailableCards3(
                     PokerDeck.cards, new ArrayList<Card>(), excludeCards, pokerHand
                 );
                 System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
@@ -116,8 +87,6 @@ public class PokerHelperCoreMain {
     }
 
     private void testCombinationsForAvailableCards2() {
-        CardsCombinationsManager cardsCombinationsManager = new CardsCombinationsManager();
-
         ArrayList<Card> availableCards = new ArrayList<>();
         /*availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
         availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D7));
@@ -140,7 +109,7 @@ public class PokerHelperCoreMain {
             Card[] combinations = new Card[5];
             combinations = availableCards.toArray(combinations);
             if (!pokerHand.isAcceptableCombination(combinations)) {
-                outs = cardsCombinationsManager.countOutsCardsForTurn(
+                outs = CardsUtils.countOutsCardsForTurn(
                     PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
                 );
             }
