@@ -3,5 +3,11 @@ box: maven
 build:
     steps:
         - script:
+                name: install additions
+                code: |-
+                    sudo apt-get update -y
+                    sudo apt-get install -y python-software-properties build-essential
+                    sudo apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
+        - script:
             name: maven build
             code: "mvn clean install"
