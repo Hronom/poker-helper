@@ -33,26 +33,29 @@ public class CardsComboBoxRenderer implements ListCellRenderer<Card> {
     public Component getListCellRendererComponent(
         JList<? extends Card> list, Card value, int index, boolean isSelected, boolean cellHasFocus
     ) {
-        JLabel label = new JLabel();
+        if (value != null) {
+            JLabel label = new JLabel();
 
-        if (isSelected) {
-            label.setBackground(list.getSelectionBackground());
-            label.setForeground(list.getSelectionForeground());
-        } else {
-            label.setBackground(list.getBackground());
-            label.setForeground(list.getForeground());
+            if (isSelected) {
+                label.setBackground(list.getSelectionBackground());
+                label.setForeground(list.getSelectionForeground());
+            } else {
+                label.setBackground(list.getBackground());
+                label.setForeground(list.getForeground());
+            }
+
+            ImageIcon icon = images.get(value);
+            label.setIcon(icon);
+
+            label.setText(
+                "<html>" + value.suitType.name() + "<br><br>" + getDenominationTypeName(value) +
+                "</html>"
+            );
+            label.setFont(list.getFont());
+
+            return label;
         }
-
-        ImageIcon icon = images.get(value);
-        label.setIcon(icon);
-
-        label.setText(
-            "<html>" + value.suitType.name() + "<br><br>" + getDenominationTypeName(value) +
-            "</html>"
-        );
-        label.setFont(list.getFont());
-
-        return label;
+        return null;
     }
 
     private String getSuitTypeName(Card card) {

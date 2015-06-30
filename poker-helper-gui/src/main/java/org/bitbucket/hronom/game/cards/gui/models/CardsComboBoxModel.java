@@ -13,7 +13,7 @@ public class CardsComboBoxModel implements ComboBoxModel<Card> {
     private Object selectedItem = null;
 
     public CardsComboBoxModel() {
-        selectedItem = PokerDeck.cards.get(0);
+        //selectedItem = PokerDeck.cards.get(0);
     }
 
     @Override

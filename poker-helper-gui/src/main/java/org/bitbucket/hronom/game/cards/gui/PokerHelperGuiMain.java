@@ -63,7 +63,7 @@ public class PokerHelperGuiMain {
             cardJComboBox1 = new JComboBox<>();
             cardJComboBox1.setModel(new CardsComboBoxModel());
             cardJComboBox1.setRenderer(new CardsComboBoxRenderer());
-            //cardJComboBox1.setSelectedIndex(0);
+            cardJComboBox1.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -238,8 +238,8 @@ public class PokerHelperGuiMain {
             }
 
             outputTextArea.append(
-                pokerHand.getClass().getSimpleName() + ", outs: " + outs + ", deck: " +
-                allCards.size() + ", result: " + getFormatedValue(
+                pokerHand.getClass().getSimpleName() + ":\t outs: " + outs + "\t deck: " +
+                allCards.size() + "\t result: " + getFormatedValue(
                     (double) outs / (double) allCards.size()
                 )
             );
