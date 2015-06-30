@@ -117,6 +117,7 @@
                             <directory>${project.basedir}/bin</directory>
                             <includes>
                                 <include>*.jar</include>
+                                <include>*.exe</include>
                                 <include>lib/</include>
                                 <include>logs/</include>
                             </includes>
