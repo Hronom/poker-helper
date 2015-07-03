@@ -42,6 +42,7 @@ public class PokerHelperGuiMain {
     private final JComboBox<Card> cardJComboBox3;
     private final JComboBox<Card> cardJComboBox4;
     private final JComboBox<Card> cardJComboBox5;
+    private final JComboBox<Card> cardJComboBox6;
 
     public PokerHelperGuiMain() {
         // Create UI
@@ -61,8 +62,8 @@ public class PokerHelperGuiMain {
         // JComboBox 1
         {
             cardJComboBox1 = new JComboBox<>();
-            cardJComboBox1.setModel(new CardsComboBoxModel());
             cardJComboBox1.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox1.setModel(new CardsComboBoxModel());
             cardJComboBox1.setSelectedIndex(0);
 
             constraint.weightx = 1;
@@ -78,8 +79,8 @@ public class PokerHelperGuiMain {
         // JComboBox 2
         {
             cardJComboBox2 = new JComboBox<>();
-            cardJComboBox2.setModel(new CardsComboBoxModel());
             cardJComboBox2.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox2.setModel(new CardsComboBoxModel());
             cardJComboBox2.setSelectedIndex(0);
 
             constraint.weightx = 1;
@@ -95,8 +96,8 @@ public class PokerHelperGuiMain {
         // JComboBox 3
         {
             cardJComboBox3 = new JComboBox<>();
-            cardJComboBox3.setModel(new CardsComboBoxModel());
             cardJComboBox3.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox3.setModel(new CardsComboBoxModel());
             cardJComboBox3.setSelectedIndex(0);
 
             constraint.weightx = 1;
@@ -112,8 +113,8 @@ public class PokerHelperGuiMain {
         // JComboBox 4
         {
             cardJComboBox4 = new JComboBox<>();
-            cardJComboBox4.setModel(new CardsComboBoxModel());
             cardJComboBox4.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox4.setModel(new CardsComboBoxModel());
             cardJComboBox4.setSelectedIndex(0);
 
             constraint.weightx = 1;
@@ -129,8 +130,8 @@ public class PokerHelperGuiMain {
         // JComboBox 5
         {
             cardJComboBox5 = new JComboBox<>();
-            cardJComboBox5.setModel(new CardsComboBoxModel());
             cardJComboBox5.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox5.setModel(new CardsComboBoxModel());
             cardJComboBox5.setSelectedIndex(0);
 
             constraint.weightx = 1;
@@ -141,6 +142,23 @@ public class PokerHelperGuiMain {
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.BOTH;
             mainPanel.add(cardJComboBox5, constraint);
+        }
+
+        // JComboBox 6
+        {
+            cardJComboBox6 = new JComboBox<>();
+            cardJComboBox6.setRenderer(new CardsComboBoxRenderer());
+            cardJComboBox6.setModel(new CardsComboBoxModel());
+            cardJComboBox6.setSelectedIndex(0);
+
+            constraint.weightx = 1;
+            constraint.weighty = 0;
+            constraint.gridx = 0;
+            constraint.gridy = 2;
+            constraint.gridwidth = 1;
+            constraint.gridheight = 1;
+            constraint.fill = GridBagConstraints.BOTH;
+            mainPanel.add(cardJComboBox6, constraint);
         }
 
         // Button for start extracting
@@ -158,7 +176,7 @@ public class PokerHelperGuiMain {
             constraint.weightx = 1;
             constraint.weighty = 0;
             constraint.gridx = 0;
-            constraint.gridy = 2;
+            constraint.gridy = 3;
             constraint.gridwidth = 5;
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.HORIZONTAL;
@@ -180,7 +198,7 @@ public class PokerHelperGuiMain {
             constraint.weightx = 1;
             constraint.weighty = 1;
             constraint.gridx = 0;
-            constraint.gridy = 3;
+            constraint.gridy = 4;
             constraint.gridwidth = 5;
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.BOTH;
@@ -217,24 +235,69 @@ public class PokerHelperGuiMain {
         outputTextArea.setText("");
 
         ArrayList<Card> availableCards = new ArrayList<>();
-        availableCards.add(cardJComboBox1.getItemAt(cardJComboBox1.getSelectedIndex()));
-        availableCards.add(cardJComboBox2.getItemAt(cardJComboBox2.getSelectedIndex()));
-        availableCards.add(cardJComboBox3.getItemAt(cardJComboBox3.getSelectedIndex()));
-        availableCards.add(cardJComboBox4.getItemAt(cardJComboBox4.getSelectedIndex()));
-        availableCards.add(cardJComboBox5.getItemAt(cardJComboBox5.getSelectedIndex()));
+        if (cardJComboBox1.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox1.getItemAt(cardJComboBox1.getSelectedIndex()));
+        }
+        if (cardJComboBox2.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox2.getItemAt(cardJComboBox2.getSelectedIndex()));
+        }
+        if (cardJComboBox3.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox3.getItemAt(cardJComboBox3.getSelectedIndex()));
+        }
+        if (cardJComboBox4.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox4.getItemAt(cardJComboBox4.getSelectedIndex()));
+        }
+        if (cardJComboBox5.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox5.getItemAt(cardJComboBox5.getSelectedIndex()));
+        }
+        if (cardJComboBox6.getSelectedIndex() != -1) {
+            availableCards.add(cardJComboBox6.getItemAt(cardJComboBox6.getSelectedIndex()));
+        }
 
         ArrayList<Card> allCards = new ArrayList<>();
         allCards.addAll(PokerDeck.cards);
         allCards.removeAll(availableCards);
 
+        switch (availableCards.size()) {
+            case 2:
+                outputTextArea.append("On Flop:");
+                outputTextArea.append("\n");
+                break;
+            case 5:
+                outputTextArea.append("On Turn:");
+                outputTextArea.append("\n");
+                break;
+            case 6:
+                outputTextArea.append("On River:");
+                outputTextArea.append("\n");
+                break;
+        }
+
         for (PokerHand pokerHand : pokerHands) {
             long outs = allCards.size();
             Card[] combinations = new Card[5];
             combinations = availableCards.toArray(combinations);
-            if (!pokerHand.isAcceptableCombination(combinations)) {
-                outs = CardsUtils.countOutsCardsForTurn(
+
+            if (availableCards.size() == 2) {
+                long calculatedOuts = CardsUtils.countOutsCardsForPreflop(
                     PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
                 );
+
+                if (calculatedOuts < allCards.size()) {
+                    outs = calculatedOuts;
+                }
+            } else if (availableCards.size() == 5) {
+                if (!pokerHand.isAcceptableCombination(combinations)) {
+                    outs = CardsUtils.countOutsCardsForTurn(
+                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                    );
+                }
+            } else if (availableCards.size() == 6) {
+                if (!pokerHand.isAcceptableCombination(combinations)) {
+                    outs = CardsUtils.countOutsCardsForRiver(
+                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                    );
+                }
             }
 
             outputTextArea.append(

@@ -18,48 +18,65 @@ public class CardsComboBoxRenderer implements ListCellRenderer<Card> {
     public CardsComboBoxRenderer() {
         for (int i = 0; i < PokerDeck.cards.size(); i++) {
             Card card = PokerDeck.cards.get(i);
-            String fileName = "Playing_card_" + getSuitTypeName(card) + "_" +
-                              getDenominationTypeName(card) +
+            String fileName = "card" + getSuitTypeName(card) + getDenominationTypeName(card) +
                               ".png";
-            URL url = this.getClass().getClassLoader().getResource(
-                "org/bitbucket/hronom/game/cards/gui/models/" + fileName
-            );
-            ImageIcon imageIcon = new ImageIcon(url);
+            ImageIcon imageIcon = getImageIcon(fileName);
             images.put(card, imageIcon);
         }
+
+        ImageIcon imageIcon = getImageIcon("cardBack_blue4.png");
+        images.put(null, imageIcon);
+    }
+
+    private ImageIcon getImageIcon(String fileName) {
+        URL url = this.getClass().getClassLoader().getResource(
+            "org/bitbucket/hronom/game/cards/gui/models/" + fileName
+        );
+        return new ImageIcon(url);
     }
 
     @Override
     public Component getListCellRendererComponent(
         JList<? extends Card> list, Card value, int index, boolean isSelected, boolean cellHasFocus
     ) {
+        JLabel label = new JLabel();
+
+        if (isSelected) {
+            label.setBackground(list.getSelectionBackground());
+            label.setForeground(list.getSelectionForeground());
+        } else {
+            label.setBackground(list.getBackground());
+            label.setForeground(list.getForeground());
+        }
+
+        ImageIcon icon = images.get(value);
+        label.setIcon(icon);
+
         if (value != null) {
-            JLabel label = new JLabel();
-
-            if (isSelected) {
-                label.setBackground(list.getSelectionBackground());
-                label.setForeground(list.getSelectionForeground());
-            } else {
-                label.setBackground(list.getBackground());
-                label.setForeground(list.getForeground());
-            }
-
-            ImageIcon icon = images.get(value);
-            label.setIcon(icon);
-
             label.setText(
                 "<html>" + value.suitType.name() + "<br><br>" + getDenominationTypeName(value) +
                 "</html>"
             );
-            label.setFont(list.getFont());
-
-            return label;
+        } else {
+            label.setText("No card");
         }
-        return null;
+        label.setFont(list.getFont());
+
+        return label;
     }
 
     private String getSuitTypeName(Card card) {
-        return card.suitType.name().toLowerCase();
+        switch (card.suitType) {
+            case DIAMOND:
+                return "Diamonds";
+            case SPADE:
+                return "Spades";
+            case CLUB:
+                return "Clubs";
+            case HEART:
+                return "Hearts";
+        }
+        return "";
     }
 
     private String getDenominationTypeName(Card card) {

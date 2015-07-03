@@ -28,12 +28,16 @@ public class CardsComboBoxModel implements ComboBoxModel<Card> {
 
     @Override
     public int getSize() {
-        return PokerDeck.cards.size();
+        return PokerDeck.cards.size() + 1;
     }
 
     @Override
     public Card getElementAt(int index) {
-        return PokerDeck.cards.get(index);
+        if (index == 0) {
+            return null;
+        } else {
+            return PokerDeck.cards.get(index - 1);
+        }
     }
 
     @Override
