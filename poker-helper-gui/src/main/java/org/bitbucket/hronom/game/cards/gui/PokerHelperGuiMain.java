@@ -59,6 +59,19 @@ public class PokerHelperGuiMain {
         constraint.gridwidth = 1;
         constraint.anchor = GridBagConstraints.CENTER;
 
+        {
+            JLabel jLabel = new JLabel("Preflop:");
+
+            constraint.weightx = 0;
+            constraint.weighty = 0;
+            constraint.gridx = 0;
+            constraint.gridy = 0;
+            constraint.gridwidth = 1;
+            constraint.gridheight = 1;
+            constraint.fill = GridBagConstraints.BOTH;
+            mainPanel.add(jLabel, constraint);
+        }
+
         // JComboBox 1
         {
             cardJComboBox1 = new JComboBox<>();
@@ -68,7 +81,7 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 0;
+            constraint.gridx = 1;
             constraint.gridy = 0;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
@@ -85,12 +98,25 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 1;
+            constraint.gridx = 2;
             constraint.gridy = 0;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.BOTH;
             mainPanel.add(cardJComboBox2, constraint);
+        }
+
+        {
+            JLabel jLabel = new JLabel("Turn:");
+
+            constraint.weightx = 0;
+            constraint.weighty = 0;
+            constraint.gridx = 0;
+            constraint.gridy = 1;
+            constraint.gridwidth = 1;
+            constraint.gridheight = 1;
+            constraint.fill = GridBagConstraints.BOTH;
+            mainPanel.add(jLabel, constraint);
         }
 
         // JComboBox 3
@@ -102,7 +128,7 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 0;
+            constraint.gridx = 1;
             constraint.gridy = 1;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
@@ -119,7 +145,7 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 1;
+            constraint.gridx = 2;
             constraint.gridy = 1;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
@@ -136,12 +162,25 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 2;
+            constraint.gridx = 3;
             constraint.gridy = 1;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.BOTH;
             mainPanel.add(cardJComboBox5, constraint);
+        }
+
+        {
+            JLabel jLabel = new JLabel("River:");
+
+            constraint.weightx = 0;
+            constraint.weighty = 0;
+            constraint.gridx = 0;
+            constraint.gridy = 2;
+            constraint.gridwidth = 1;
+            constraint.gridheight = 1;
+            constraint.fill = GridBagConstraints.BOTH;
+            mainPanel.add(jLabel, constraint);
         }
 
         // JComboBox 6
@@ -153,7 +192,7 @@ public class PokerHelperGuiMain {
 
             constraint.weightx = 1;
             constraint.weighty = 0;
-            constraint.gridx = 0;
+            constraint.gridx = 1;
             constraint.gridy = 2;
             constraint.gridwidth = 1;
             constraint.gridheight = 1;
