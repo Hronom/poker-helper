@@ -2,8 +2,10 @@ package org.bitbucket.hronom.game.cards.gui;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bitbucket.hronom.game.cards.gui.controllers.CalculateButtonController;
 import org.bitbucket.hronom.game.cards.gui.models.CardsComboBoxModel;
 import org.bitbucket.hronom.game.cards.gui.models.CardsComboBoxRenderer;
+import org.bitbucket.hronom.game.cards.gui.utils.UTFResourceBundle;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
 import org.bitbucket.hronom.poker.helper.core.cards.utils.CardsUtils;
@@ -22,17 +24,20 @@ import org.bitbucket.hronom.poker.helper.core.poker.hands.TwoPair;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 
 public class PokerHelperGuiMain {
     private static final Logger logger = LogManager.getLogger();
-
+    private static final ResourceBundle resourceBundle = UTFResourceBundle
+        .getBundle("MessagesBundle");//NON-NLS
     //private final MainView mainView;
-    private final String propertiesFileName = "game-cards-editor.properties";
+    private static final String propertiesFileName = "poker-helper-gui-app.properties"; //NON-NLS
 
-    private static final String appName = "Poker Helper";
+    private static final String appName = resourceBundle.getString("app.name");
 
     private final ArrayList<PokerHand> pokerHands = new ArrayList<>();
 
@@ -43,6 +48,7 @@ public class PokerHelperGuiMain {
     private final JComboBox<Card> cardJComboBox4;
     private final JComboBox<Card> cardJComboBox5;
     private final JComboBox<Card> cardJComboBox6;
+    private final JButton calculateButton;
 
     public PokerHelperGuiMain() {
         // Create UI
@@ -60,7 +66,7 @@ public class PokerHelperGuiMain {
         constraint.anchor = GridBagConstraints.CENTER;
 
         {
-            JLabel jLabel = new JLabel("Preflop:");
+            JLabel jLabel = new JLabel(resourceBundle.getString("app.gui.labels.hand"));
 
             constraint.weightx = 0;
             constraint.weighty = 0;
@@ -77,7 +83,6 @@ public class PokerHelperGuiMain {
             cardJComboBox1 = new JComboBox<>();
             cardJComboBox1.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox1.setModel(new CardsComboBoxModel());
-            cardJComboBox1.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -94,7 +99,6 @@ public class PokerHelperGuiMain {
             cardJComboBox2 = new JComboBox<>();
             cardJComboBox2.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox2.setModel(new CardsComboBoxModel());
-            cardJComboBox2.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -107,7 +111,7 @@ public class PokerHelperGuiMain {
         }
 
         {
-            JLabel jLabel = new JLabel("Turn:");
+            JLabel jLabel = new JLabel(resourceBundle.getString("app.gui.labels.flop"));
 
             constraint.weightx = 0;
             constraint.weighty = 0;
@@ -124,7 +128,6 @@ public class PokerHelperGuiMain {
             cardJComboBox3 = new JComboBox<>();
             cardJComboBox3.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox3.setModel(new CardsComboBoxModel());
-            cardJComboBox3.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -141,7 +144,6 @@ public class PokerHelperGuiMain {
             cardJComboBox4 = new JComboBox<>();
             cardJComboBox4.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox4.setModel(new CardsComboBoxModel());
-            cardJComboBox4.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -158,7 +160,6 @@ public class PokerHelperGuiMain {
             cardJComboBox5 = new JComboBox<>();
             cardJComboBox5.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox5.setModel(new CardsComboBoxModel());
-            cardJComboBox5.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -171,7 +172,7 @@ public class PokerHelperGuiMain {
         }
 
         {
-            JLabel jLabel = new JLabel("River:");
+            JLabel jLabel = new JLabel(resourceBundle.getString("app.gui.labels.turn"));
 
             constraint.weightx = 0;
             constraint.weighty = 0;
@@ -188,7 +189,6 @@ public class PokerHelperGuiMain {
             cardJComboBox6 = new JComboBox<>();
             cardJComboBox6.setRenderer(new CardsComboBoxRenderer());
             cardJComboBox6.setModel(new CardsComboBoxModel());
-            cardJComboBox6.setSelectedIndex(0);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -200,17 +200,22 @@ public class PokerHelperGuiMain {
             mainPanel.add(cardJComboBox6, constraint);
         }
 
-        // Button for start extracting
+        // Button reset cards
         {
-            final String buttonName = "Calculate";
-            final JButton processButton = new JButton(buttonName);
+            JButton resetCardsButton = new JButton();
+            resetCardsButton.setText(resourceBundle.getString("app.gui.buttons.resetcards.text"));
             ActionListener actionListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    processAction();
+                    cardJComboBox1.setSelectedIndex(-1);
+                    cardJComboBox2.setSelectedIndex(-1);
+                    cardJComboBox3.setSelectedIndex(-1);
+                    cardJComboBox4.setSelectedIndex(-1);
+                    cardJComboBox5.setSelectedIndex(-1);
+                    cardJComboBox6.setSelectedIndex(-1);
                 }
             };
-            processButton.addActionListener(actionListener);
+            resetCardsButton.addActionListener(actionListener);
 
             constraint.weightx = 1;
             constraint.weighty = 0;
@@ -220,7 +225,50 @@ public class PokerHelperGuiMain {
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.HORIZONTAL;
             constraint.anchor = GridBagConstraints.BELOW_BASELINE;
-            mainPanel.add(processButton, constraint);
+            mainPanel.add(resetCardsButton, constraint);
+        }
+
+        // Button calculate
+        {
+            calculateButton = new JButton();
+            calculateButton.setEnabled(false);
+            calculateButton.setText(resourceBundle.getString("app.gui.buttons.calculate.disabled"));
+            ActionListener actionListener = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    calculateButton.setEnabled(false);
+                    String previousText = calculateButton.getText();
+                    calculateButton.setText(
+                        resourceBundle.getString("app.gui.buttons.calculate.processing")
+                    );
+                    processAction();
+                    calculateButton.setEnabled(true);
+                    calculateButton.setText(previousText);
+                }
+            };
+            calculateButton.addActionListener(actionListener);
+
+            constraint.weightx = 1;
+            constraint.weighty = 0;
+            constraint.gridx = 0;
+            constraint.gridy = 4;
+            constraint.gridwidth = 5;
+            constraint.gridheight = 1;
+            constraint.fill = GridBagConstraints.HORIZONTAL;
+            constraint.anchor = GridBagConstraints.BELOW_BASELINE;
+            mainPanel.add(calculateButton, constraint);
+        }
+
+        {
+            CalculateButtonController calculateButtonController = new CalculateButtonController(
+                cardJComboBox1,
+                cardJComboBox2,
+                cardJComboBox3,
+                cardJComboBox4,
+                cardJComboBox5,
+                cardJComboBox6,
+                calculateButton
+            );
         }
 
         // JTextArea for output before
@@ -237,16 +285,20 @@ public class PokerHelperGuiMain {
             constraint.weightx = 1;
             constraint.weighty = 1;
             constraint.gridx = 0;
-            constraint.gridy = 4;
+            constraint.gridy = 5;
             constraint.gridwidth = 5;
             constraint.gridheight = 1;
             constraint.fill = GridBagConstraints.BOTH;
             mainPanel.add(scrollPane, constraint);
         }
 
+        ArrayList<Image> images = new ArrayList<>();
+        images.add(getImage("1435621016_cards.ico"));
+
         JFrame frame = new JFrame(appName);
+        frame.setIconImages(images);
         frame.setContentPane(mainPanel);
-        frame.setPreferredSize(new Dimension(640, 480));
+        frame.setPreferredSize(new Dimension(640, 540));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(false);
@@ -299,15 +351,15 @@ public class PokerHelperGuiMain {
 
         switch (availableCards.size()) {
             case 2:
-                outputTextArea.append("On Flop:");
+                outputTextArea.append(resourceBundle.getString("app.gui.report.on.flop"));
                 outputTextArea.append("\n");
                 break;
             case 5:
-                outputTextArea.append("On Turn:");
+                outputTextArea.append(resourceBundle.getString("app.gui.report.on.turn"));
                 outputTextArea.append("\n");
                 break;
             case 6:
-                outputTextArea.append("On River:");
+                outputTextArea.append(resourceBundle.getString("app.gui.report.on.river"));
                 outputTextArea.append("\n");
                 break;
         }
@@ -340,17 +392,53 @@ public class PokerHelperGuiMain {
             }
 
             outputTextArea.append(
-                pokerHand.getClass().getSimpleName() + ":\t outs: " + outs + "\t deck: " +
-                allCards.size() + "\t result: " + getFormatedValue(
-                    (double) outs / (double) allCards.size()
-                )
+                getHandName(pokerHand) + "\t" +
+                resourceBundle.getString("app.gui.report.outs") + " " + outs + "\t" +
+                resourceBundle.getString("app.gui.report.deck") + " " + allCards.size() + "\t" +
+                resourceBundle.getString("app.gui.report.result") + " " +
+                getFormatedValue((double) outs / (double) allCards.size())
             );
             outputTextArea.append("\n");
         }
     }
 
+    private String getHandName(PokerHand pokerHand) {
+        switch (pokerHand.getClass().getSimpleName()) {
+            case "RoyalFlush": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.royalflush");
+            case "StraightFlush": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.straightflush");
+            case "FourOfKind": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.fourofkind");
+            case "FullHouse": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.fullhouse");
+            case "Flush": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.flush");
+            case "Straight": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.straight");
+            case "ThreeOfKind": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.threeofkind");
+            case "TwoPair": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.twopair");
+            case "OnePair": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.onepair");
+            case "HighCard": //NON-NLS
+                return resourceBundle.getString("app.gui.report.hands.names.highcard");
+        }
+
+        return null;
+    }
+
     private String getFormatedValue(double value) {
         //return String.valueOf((1 - value) * 100);
         return String.format("%." + 0 + "f", value * 100) + "%";
+    }
+
+    private Image getImage(String fileName) {
+        URL url = this.getClass().getClassLoader().getResource(
+            "org/bitbucket/hronom/game/cards/gui/" + fileName
+        );
+        ImageIcon imageIcon = new ImageIcon(url);
+        return imageIcon.getImage();
     }
 }

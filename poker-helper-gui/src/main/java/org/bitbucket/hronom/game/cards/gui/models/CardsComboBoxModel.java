@@ -9,21 +9,25 @@ import javax.swing.event.ListDataListener;
 /**
  * Created by hronom on 29.06.15.
  */
-public class CardsComboBoxModel implements ComboBoxModel<Card> {
-    private Object selectedItem = null;
+public class CardsComboBoxModel extends AbstractListModel<Card> implements ComboBoxModel<Card> {
+    private Object selectedObject = null;
 
     public CardsComboBoxModel() {
         //selectedItem = PokerDeck.cards.get(0);
     }
 
     @Override
-    public void setSelectedItem(Object anItem) {
-        selectedItem = anItem;
+    public void setSelectedItem(Object anObject) {
+        if ((selectedObject != null && !selectedObject.equals(anObject)) ||
+            selectedObject == null && anObject != null) {
+            selectedObject = anObject;
+            fireContentsChanged(this, -1, -1);
+        }
     }
 
     @Override
     public Object getSelectedItem() {
-        return selectedItem;
+        return selectedObject;
     }
 
     @Override
@@ -33,20 +37,10 @@ public class CardsComboBoxModel implements ComboBoxModel<Card> {
 
     @Override
     public Card getElementAt(int index) {
-        if (index == 0) {
-            return null;
-        } else {
+        if (index > 0) {
             return PokerDeck.cards.get(index - 1);
         }
-    }
 
-    @Override
-    public void addListDataListener(ListDataListener l) {
-
-    }
-
-    @Override
-    public void removeListDataListener(ListDataListener l) {
-
+        return null;
     }
 }
