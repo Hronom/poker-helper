@@ -26,4 +26,19 @@ public class StraightFlushTest {
         StraightFlush straightFlush = new StraightFlush();
         assertTrue(straightFlush.isAcceptableCombination(cards));
     }
+
+    @Test
+    public void testIsAcceptableCombination2() throws Exception {
+        Card cards[] = new Card[]{
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D5),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D6),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D7),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D8),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.D9),
+            PokerDeck.getCard(CardSuitType.CLUB, CardDenominationType.ACE)
+        };
+
+        StraightFlush straightFlush = new StraightFlush();
+        assertTrue(straightFlush.isAcceptableCombination(cards));
+    }
 }

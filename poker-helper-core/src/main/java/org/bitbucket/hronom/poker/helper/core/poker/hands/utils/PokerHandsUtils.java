@@ -25,7 +25,7 @@ public final class PokerHandsUtils {
                 }
             }
 
-            if (countOfCards == countOfOneSuitCards - 1) {
+            if (countOfCards >= countOfOneSuitCards - 1) {
                 return true;
             }
         }

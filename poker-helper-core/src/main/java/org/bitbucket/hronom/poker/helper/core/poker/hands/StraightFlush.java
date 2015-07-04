@@ -28,6 +28,16 @@ public class StraightFlush implements PokerHand {
     }
 
     private boolean isAcceptableCards(Card[] cards) {
+        short countOfAces = 0;
+        for (Card currentCard : cards) {
+            if (currentCard.denominationType == CardDenominationType.ACE) {
+                countOfAces++;
+            }
+        }
+        if (countOfAces > 1) {
+            return false;
+        }
+
         short countOfHighLowCards = 0;
         for (Card currentCard : cards) {
             short countOfAcceptableNeighbors = 0;
@@ -47,29 +57,20 @@ public class StraightFlush implements PokerHand {
                                            .getCardDenominationSequenceNumber(checkCard.denominationType)) {
                                 countOfAcceptableNeighbors++;
                             }
-                            // Exception for Aces
-                            else if ((currentCard.denominationType == CardDenominationType.ACE ||
-                                      checkCard.denominationType == CardDenominationType.ACE) &&
-                                     ((currentCard.denominationType == CardDenominationType.D2 ||
-                                       checkCard.denominationType == CardDenominationType.D2) ||
-                                      (currentCard.denominationType == CardDenominationType.KING ||
-                                       checkCard.denominationType == CardDenominationType.KING))) {
-                                countOfAcceptableNeighbors++;
-                            }
                         }
                     }
                 }
 
                 if (countOfAcceptableNeighbors == 1) {
                     countOfHighLowCards++;
-                } else if (countOfAcceptableNeighbors != 2) {
+                } else if (countOfAcceptableNeighbors < 2 && countOfAces == 0) {
                     return false;
                 }
             }
         }
 
-        // Check count of high/low cards
-        if (countOfHighLowCards != 2) {
+        // Check count of high/low/aces cards
+        if (countOfHighLowCards != 2 && countOfHighLowCards != 1 && countOfAces != 1) {
             return false;
         }
 
