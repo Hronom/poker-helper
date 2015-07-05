@@ -282,7 +282,13 @@ public class PokerHelperGuiMain {
         }
 
         ArrayList<Image> images = new ArrayList<>();
-        images.add(getImage("1435621016_cards.ico"));
+        images.add(getImage("1436133329_cards.png"));
+        images.add(getImage("1436133363_cards.png"));
+        images.add(getImage("1436133367_cards.png"));
+        images.add(getImage("1436133371_cards.png"));
+        images.add(getImage("1436133374_cards.png"));
+        images.add(getImage("1436133378_cards.png"));
+        images.add(getImage("1436133381_cards.png"));
 
         JFrame frame = new JFrame(appName);
         frame.setIconImages(images);

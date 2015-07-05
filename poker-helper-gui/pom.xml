@@ -184,11 +184,11 @@
                                 <fileVersion>${project.version}.0</fileVersion>
                                 <txtFileVersion>${project.version}.0</txtFileVersion>
                                 <fileDescription>TODO</fileDescription>
-                                <copyright>TODO</copyright>
+                                <copyright>hronom@gmail.com</copyright>
                                 <productVersion>${project.version}.0</productVersion>
                                 <txtProductVersion>${project.version}.0</txtProductVersion>
                                 <companyName>TODO</companyName>
-                                <productName>TODO</productName>
+                                <productName>Poker Helper</productName>
                                 <internalName>TODO</internalName>
                                 <originalFilename>${project.artifactId}.exe</originalFilename>
                             </versionInfo>
