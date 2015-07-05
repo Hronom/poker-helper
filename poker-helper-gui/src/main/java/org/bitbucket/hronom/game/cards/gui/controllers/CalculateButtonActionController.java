@@ -1,5 +1,7 @@
 package org.bitbucket.hronom.game.cards.gui.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bitbucket.hronom.game.cards.gui.utils.UTFResourceBundle;
 import org.bitbucket.hronom.poker.helper.core.cards.Card;
 import org.bitbucket.hronom.poker.helper.core.cards.PokerDeck;
@@ -27,6 +29,8 @@ import javax.swing.*;
  * Created by hronom on 04.07.15.
  */
 public class CalculateButtonActionController implements ActionListener {
+    private final Logger logger = LogManager.getLogger();
+
     private final ResourceBundle resourceBundle = UTFResourceBundle.getBundle("MessagesBundle");
     //NON-NLS
 
@@ -86,86 +90,101 @@ public class CalculateButtonActionController implements ActionListener {
     }
 
     public void processAction() {
-        outputTextArea.setText("");
+        try {
+            outputTextArea.setText("");
 
-        ArrayList<Card> availableCards = new ArrayList<>();
-        if (cardJComboBox1.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox1.getItemAt(cardJComboBox1.getSelectedIndex()));
-        }
-        if (cardJComboBox2.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox2.getItemAt(cardJComboBox2.getSelectedIndex()));
-        }
-        if (cardJComboBox3.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox3.getItemAt(cardJComboBox3.getSelectedIndex()));
-        }
-        if (cardJComboBox4.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox4.getItemAt(cardJComboBox4.getSelectedIndex()));
-        }
-        if (cardJComboBox5.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox5.getItemAt(cardJComboBox5.getSelectedIndex()));
-        }
-        if (cardJComboBox6.getSelectedIndex() != -1) {
-            availableCards.add(cardJComboBox6.getItemAt(cardJComboBox6.getSelectedIndex()));
-        }
-
-        ArrayList<Card> allCards = new ArrayList<>();
-        allCards.addAll(PokerDeck.cards);
-        allCards.removeAll(availableCards);
-
-        switch (availableCards.size()) {
-            case 2:
-                outputTextArea.append(resourceBundle.getString("app.gui.report.on.flop"));
-                outputTextArea.append("\n");
-                break;
-            case 5:
-                outputTextArea.append(resourceBundle.getString("app.gui.report.on.turn"));
-                outputTextArea.append("\n");
-                break;
-            case 6:
-                outputTextArea.append(resourceBundle.getString("app.gui.report.on.river"));
-                outputTextArea.append("\n");
-                break;
-        }
-
-        for (PokerHand pokerHand : pokerHands) {
-            long outs = allCards.size();
-
-            if (availableCards.size() == 2) {
-                long calculatedOuts = CardsUtils.countOutsCardsForPreflop(
-                    PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                );
-
-                if (calculatedOuts < allCards.size()) {
-                    outs = calculatedOuts;
-                }
-            } else if (availableCards.size() == 5) {
-                Card[] combinations = new Card[5];
-                combinations = availableCards.toArray(combinations);
-
-                if (!pokerHand.isAcceptableCombination(combinations)) {
-                    outs = CardsUtils.countOutsCardsForTurn(
-                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                    );
-                }
-            } else if (availableCards.size() == 6) {
-                Card[] combinations = new Card[6];
-                combinations = availableCards.toArray(combinations);
-
-                if (!pokerHand.isAcceptableCombination(combinations)) {
-                    outs = CardsUtils.countOutsCardsForRiver(
-                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                    );
-                }
+            ArrayList<Card> availableCards = new ArrayList<>();
+            if (cardJComboBox1.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox1.getItemAt(cardJComboBox1.getSelectedIndex()));
+            }
+            if (cardJComboBox2.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox2.getItemAt(cardJComboBox2.getSelectedIndex()));
+            }
+            if (cardJComboBox3.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox3.getItemAt(cardJComboBox3.getSelectedIndex()));
+            }
+            if (cardJComboBox4.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox4.getItemAt(cardJComboBox4.getSelectedIndex()));
+            }
+            if (cardJComboBox5.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox5.getItemAt(cardJComboBox5.getSelectedIndex()));
+            }
+            if (cardJComboBox6.getSelectedIndex() != -1) {
+                availableCards.add(cardJComboBox6.getItemAt(cardJComboBox6.getSelectedIndex()));
             }
 
-            outputTextArea.append(
-                getHandName(pokerHand) + "\t" +
-                resourceBundle.getString("app.gui.report.outs") + " " + outs + "\t" +
-                resourceBundle.getString("app.gui.report.deck") + " " + allCards.size() + "\t" +
-                resourceBundle.getString("app.gui.report.result") + " " +
-                getFormatedValue((double) outs / (double) allCards.size())
-            );
-            outputTextArea.append("\n");
+            ArrayList<Card> allCards = new ArrayList<>();
+            allCards.addAll(PokerDeck.cards);
+            allCards.removeAll(availableCards);
+
+            switch (availableCards.size()) {
+                case 2:
+                    outputTextArea.append(resourceBundle.getString("app.gui.report.on.flop"));
+                    outputTextArea.append("\n");
+                    break;
+                case 5:
+                    outputTextArea.append(resourceBundle.getString("app.gui.report.on.turn"));
+                    outputTextArea.append("\n");
+                    break;
+                case 6:
+                    outputTextArea.append(resourceBundle.getString("app.gui.report.on.river"));
+                    outputTextArea.append("\n");
+                    break;
+            }
+
+            for (PokerHand pokerHand : pokerHands) {
+                long outs = allCards.size();
+
+                if (availableCards.size() == 2) {
+                    long calculatedOuts = CardsUtils.countOutsCardsForPreflop(
+                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                    );
+
+                    if (calculatedOuts < allCards.size()) {
+                        outs = calculatedOuts;
+                    }
+                } else if (availableCards.size() == 5) {
+                    Card[] combinations = new Card[5];
+                    combinations = availableCards.toArray(combinations);
+
+                    if (!pokerHand.isAcceptableCombination(combinations)) {
+                        outs = CardsUtils.countOutsCardsForTurn(
+                            PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                        );
+                    }
+                } else if (availableCards.size() == 6) {
+                    Card[] combinations = new Card[6];
+                    combinations = availableCards.toArray(combinations);
+
+                    if (!pokerHand.isAcceptableCombination(combinations)) {
+                        outs = CardsUtils.countOutsCardsForRiver(
+                            PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
+                        );
+                    }
+                }
+
+                // Calculate probability
+                double probability = (double) outs / (double) allCards.size() * 100;
+                // Calculate odds
+                int odds;
+                if (probability == 0.0) {
+                    odds = allCards.size();
+                } else {
+                    odds = (100 / (int) probability) - 1;
+                }
+
+                outputTextArea.append(
+                    getHandName(pokerHand) + "\t" +
+                    resourceBundle.getString("app.gui.report.outs") + " " + outs + "\t" +
+                    resourceBundle.getString("app.gui.report.deck") + " " + allCards.size() + "\t" +
+                    resourceBundle.getString("app.gui.report.odds") + " " +
+                    String.format("%.0f", probability) + "%" +
+                    (probability != 0.0 ? " ~ " + odds + ":1" : "")
+                );
+                outputTextArea.append("\n");
+            }
+        } catch (Exception e) {
+            logger.error(e);
         }
     }
 
@@ -197,6 +216,6 @@ public class CalculateButtonActionController implements ActionListener {
     }
 
     private String getFormatedValue(double value) {
-        return String.format("%." + 0 + "f", value * 100) + "%";
+        return String.format("%.0f", value * 100) + "%";
     }
 }
