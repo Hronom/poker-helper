@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by hronom on 04.07.15.
  */
-public class CalculateButtonController implements ActionListener {
+public class CalculateButtonTextController implements ActionListener {
     private final ResourceBundle resourceBundle = UTFResourceBundle.getBundle("MessagesBundle");
     //NON-NLS
     private final JComboBox<Card> cardJComboBox1;
@@ -23,7 +23,7 @@ public class CalculateButtonController implements ActionListener {
     private final JComboBox<Card> cardJComboBox6;
     private final JButton calculateButton;
 
-    public CalculateButtonController(
+    public CalculateButtonTextController(
         JComboBox<Card> cardJComboBox1Arg,
         JComboBox<Card> cardJComboBox2Arg,
         JComboBox<Card> cardJComboBox3Arg,

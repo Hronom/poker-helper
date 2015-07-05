@@ -30,8 +30,10 @@ public class StraightFlush implements PokerHand {
     private boolean isAcceptableCards(Card[] cards) {
         short countOfAces = 0;
         for (Card currentCard : cards) {
-            if (currentCard.denominationType == CardDenominationType.ACE) {
-                countOfAces++;
+            if (currentCard != null) {
+                if (currentCard.denominationType == CardDenominationType.ACE) {
+                    countOfAces++;
+                }
             }
         }
         if (countOfAces > 1) {
