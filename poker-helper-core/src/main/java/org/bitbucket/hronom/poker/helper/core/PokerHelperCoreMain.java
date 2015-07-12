@@ -56,34 +56,13 @@ public class PokerHelperCoreMain {
         System.out.println("test");
 
         ArrayList<Card> availableCards = new ArrayList<>();
-        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
-        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D7));
-        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
-        //        availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10));
-        //        availableCards.add(PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D3));
-        //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.KING));
-        //        availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.ACE));
-        {
-            for (PokerHand pokerHand : pokerHands) {
-                long count = CardsUtils.countCombinationsForAvailableCards3(
-                    PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                );
-                System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
-            }
-        }
-
-        System.out.println();
-
-        ArrayList<Card> excludeCards = new ArrayList<>();
-        excludeCards.addAll(availableCards);
-        {
-            for (PokerHand pokerHand : pokerHands) {
-                long count = CardsUtils.countCombinationsForAvailableCards3(
-                    PokerDeck.cards, new ArrayList<Card>(), excludeCards, pokerHand
-                );
-                System.out.println(pokerHand.getClass().getSimpleName() + ": " + count);
-            }
-        }
+//                availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D8));
+//                availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D7));
+//                availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.ACE));
+//                availableCards.add(PokerDeck.getCard(CardSuitType.HEART, CardDenominationType.D10));
+//                availableCards.add(PokerDeck.getCard(CardSuitType.SPADE, CardDenominationType.D3));
+//                availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.KING));
+//                availableCards.add(new Card(CardSuitType.SPADE, CardDenominationType.ACE));
     }
 
     private void testCombinationsForAvailableCards2() {
