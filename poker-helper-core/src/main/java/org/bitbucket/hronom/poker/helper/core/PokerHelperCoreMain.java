@@ -109,9 +109,7 @@ public class PokerHelperCoreMain {
             Card[] combinations = new Card[5];
             combinations = availableCards.toArray(combinations);
             if (!pokerHand.isAcceptableCombination(combinations)) {
-                outs = CardsUtils.countOutsCardsForTurn(
-                    PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                );
+                outs = CardsUtils.countOutsCardsForTurn(availableCards, pokerHand);
             }
 
             System.out.println(

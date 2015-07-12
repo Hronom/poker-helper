@@ -65,14 +65,6 @@ public class CalculateButtonTextController implements ActionListener {
                    cardJComboBox6.getSelectedIndex() == -1) {
             calculateButton.setText(resourceBundle.getString("app.gui.buttons.calculate.turn"));
             calculateButton.setEnabled(true);
-        } else if (cardJComboBox1.getSelectedIndex() > 0 &&
-                   cardJComboBox2.getSelectedIndex() > 0 &&
-                   cardJComboBox3.getSelectedIndex() == -1 &&
-                   cardJComboBox4.getSelectedIndex() == -1 &&
-                   cardJComboBox5.getSelectedIndex() == -1 &&
-                   cardJComboBox6.getSelectedIndex() == -1) {
-            calculateButton.setText(resourceBundle.getString("app.gui.buttons.calculate.flop"));
-            calculateButton.setEnabled(true);
         } else {
             calculateButton.setText(resourceBundle.getString("app.gui.buttons.calculate.disabled"));
             calculateButton.setEnabled(false);

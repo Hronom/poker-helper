@@ -118,10 +118,6 @@ public class CalculateButtonActionController implements ActionListener {
             allCards.removeAll(availableCards);
 
             switch (availableCards.size()) {
-                case 2:
-                    outputTextArea.append(resourceBundle.getString("app.gui.report.on.flop"));
-                    outputTextArea.append("\n");
-                    break;
                 case 5:
                     outputTextArea.append(resourceBundle.getString("app.gui.report.on.turn"));
                     outputTextArea.append("\n");
@@ -135,31 +131,19 @@ public class CalculateButtonActionController implements ActionListener {
             for (PokerHand pokerHand : pokerHands) {
                 long outs = allCards.size();
 
-                if (availableCards.size() == 2) {
-                    long calculatedOuts = CardsUtils.countOutsCardsForPreflop(
-                        PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                    );
-
-                    if (calculatedOuts < allCards.size()) {
-                        outs = calculatedOuts;
-                    }
-                } else if (availableCards.size() == 5) {
+                if (availableCards.size() == 5) {
                     Card[] combinations = new Card[5];
                     combinations = availableCards.toArray(combinations);
 
                     if (!pokerHand.isAcceptableCombination(combinations)) {
-                        outs = CardsUtils.countOutsCardsForTurn(
-                            PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                        );
+                        outs = CardsUtils.countOutsCardsForTurn(availableCards, pokerHand);
                     }
                 } else if (availableCards.size() == 6) {
                     Card[] combinations = new Card[6];
                     combinations = availableCards.toArray(combinations);
 
                     if (!pokerHand.isAcceptableCombination(combinations)) {
-                        outs = CardsUtils.countOutsCardsForRiver(
-                            PokerDeck.cards, availableCards, new ArrayList<Card>(), pokerHand
-                        );
+                        outs = CardsUtils.countOutsCardsForRiver(availableCards, pokerHand);
                     }
                 }
 
@@ -213,9 +197,5 @@ public class CalculateButtonActionController implements ActionListener {
         }
 
         return null;
-    }
-
-    private String getFormatedValue(double value) {
-        return String.format("%.0f", value * 100) + "%";
     }
 }
