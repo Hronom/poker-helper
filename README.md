@@ -1,4 +1,5 @@
 [![wercker status](https://app.wercker.com/status/91e9105120bfb3b794a399d154edae86/m "wercker status")](https://app.wercker.com/project/bykey/91e9105120bfb3b794a399d154edae86)
+[![Build Status](https://travis-ci.org/Hronom/poker-helper.svg?branch=master)](https://travis-ci.org/Hronom/poker-helper)
 
 # Описание #
 Простейшая реализация подсчётов из видео http://ru.pokerstrategy.com/video/29712/
