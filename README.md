@@ -1,7 +1,7 @@
 [![wercker status](https://app.wercker.com/status/91e9105120bfb3b794a399d154edae86/m "wercker status")](https://app.wercker.com/project/bykey/91e9105120bfb3b794a399d154edae86)
 
 # Описание #
-Простейшая реализация подсчёта выпадения той или иной комбинации согласно видео http://ru.pokerstrategy.com/video/29712/
+Простейшая реализация подсчётов из видео http://ru.pokerstrategy.com/video/29712/
 
 # Полезные ссылки #
 Как играть на префлопе? - http://ru.pokerstrategy.com/strategy/bss/1535/1/
