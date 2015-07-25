@@ -65,7 +65,6 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
                             <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>org.bitbucket.hronom.poker.helper.core.PokerHelperCoreMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

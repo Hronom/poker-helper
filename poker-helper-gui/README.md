@@ -1,10 +1,13 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+# About #
+Main GUI for Poker Helper.
+
+## Icons license description ##
 Icon downloaded from: https://www.iconfinder.com/icons/174759/cards_icon#size=256
 Icon set: "Windows 8 metro style" https://www.iconfinder.com/iconsets/windows-8-metro-style
 License: Free for commercial use (Include link to authors website)
 Author website: https://icons8.com/
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+## Cards images license description ##
 Cards images downloaded from: http://opengameart.org/content/boardgame-pack
 
 License description:
@@ -21,4 +24,4 @@ License description:
     ------------------------------
 
     More information:
-    www.kenney.nl
+    www.kenney.
