@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk7
-sudo: false # faster builds
+sudo: true # faster builds
 
 before_install:
   - apt-get update -y
