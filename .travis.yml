@@ -1,10 +1,11 @@
 language: java
 jdk: oraclejdk7
+sudo: false # faster builds
 
 before_install:
-  - sudo apt-get update -y
-  - sudo apt-get install -y python-software-properties build-essential
-  - sudo apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
+  - apt-get update -y
+  - apt-get install -y python-software-properties build-essential
+  - apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
