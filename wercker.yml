@@ -17,7 +17,7 @@ deploy:
         - github-create-release:
             token: $GITHUB_TOKEN
             tag: v0.0.1
-            title: Poker Helper v0.0.1-$WERCKER_GIT_COMMIT
+            title: Poker Helper v0.0.1
         - github-upload-asset:
             token: $GITHUB_TOKEN
             file: poker-helper-gui/dist/poker-helper-gui-0.0.1-bin.zip
