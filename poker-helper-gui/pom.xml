@@ -123,6 +123,13 @@
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/dist</directory>
+                            <includes>
+                                <include>*.zip</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
@@ -193,6 +200,25 @@
                                 <originalFilename>${project.artifactId}.exe</originalFilename>
                             </versionInfo>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/zip.xml</descriptor>
+                    </descriptors>
+                    <outputDirectory>${project.basedir}/dist</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
