@@ -20,4 +20,4 @@ deploy:
         - github-create-release:
             token: $GITHUB_TOKEN
             tag: v$APP_VERSION
-            target-commitish: $WERCKER_GIT_COMMIT
+            draft: true
