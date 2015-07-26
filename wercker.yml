@@ -19,5 +19,6 @@ deploy:
             code: export APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
         - github-create-release:
             token: $GITHUB_TOKEN
-            tag: v$APP_VERSION
+            tag: $APP_VERSION
+            title: Application $APP_VERSION
             draft: true
