@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <groupId>com.github.hronom</groupId>
         <artifactId>poker-helper</artifactId>
-        <groupId>org.bitbucket.hronom</groupId>
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bitbucket.hronom</groupId>
+            <groupId>com.github.hronom</groupId>
             <artifactId>poker-helper-core</artifactId>
             <version>0.0.1</version>
         </dependency>
@@ -63,7 +63,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
                             <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>org.bitbucket.hronom.game.cards.gui.PokerHelperGuiMain</mainClass>
+                            <mainClass>com.github.hronom.game.cards.gui.PokerHelperGuiMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -180,7 +180,7 @@
                             <errTitle>TODO</errTitle>
                             <icon>src/main/icons/1435621016_cards.ico</icon>
                             <classPath>
-                                <mainClass>org.bitbucket.hronom.game.cards.gui.PokerHelperGuiMain</mainClass>
+                                <mainClass>com.github.hronom.game.cards.gui.PokerHelperGuiMain</mainClass>
                                 <addDependencies>true</addDependencies>
                                 <preCp>anything</preCp>
                             </classPath>
