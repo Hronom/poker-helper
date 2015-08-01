@@ -9,11 +9,13 @@ before_install:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
+script: "APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')"
+
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file:
-       - "poker-helper-gui/dist/poker-helper-gui-1.0.1-bin.zip"
+       - "poker-helper-gui/dist/poker-helper-gui-$APP_VERSION-bin.zip"
   skip_cleanup: true
   on:
     tags: true
