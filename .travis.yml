@@ -8,3 +8,11 @@ before_install:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: poker-helper-gui/dist/poker-helper-gui-0.0.1-bin.zip
+  skip_cleanup: true
+  on:
+    tags: true
