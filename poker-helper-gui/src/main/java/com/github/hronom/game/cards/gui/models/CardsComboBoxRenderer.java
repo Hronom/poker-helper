@@ -33,9 +33,7 @@ public class CardsComboBoxRenderer implements ListCellRenderer<Card> {
     }
 
     private ImageIcon getImageIcon(String fileName) {
-        URL url = this.getClass().getClassLoader().getResource(
-            "org/bitbucket/hronom/game/cards/gui/models/" + fileName
-        );
+        URL url = this.getClass().getResource(fileName);
         return new ImageIcon(url);
     }
 

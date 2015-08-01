@@ -10,8 +10,10 @@ import com.github.hronom.poker.helper.core.cards.Card;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
@@ -288,7 +290,14 @@ public class MainView {
         images.add(getImage("1436133378_cards.png"));
         images.add(getImage("1436133381_cards.png"));
 
-        JFrame frame = new JFrame(appName);
+        Properties properties = new Properties();
+        try {
+        properties.load(this.getClass().getResourceAsStream("/poker-helper-gui.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JFrame frame = new JFrame(appName + " v" + properties.getProperty("app.version") + "/" + properties.getProperty("app.buildNumber"));
         frame.setIconImages(images);
         frame.setContentPane(mainPanel);
         frame.setPreferredSize(new Dimension(640, 540));
@@ -299,9 +308,7 @@ public class MainView {
     }
 
     private Image getImage(String fileName) {
-        URL url = this.getClass().getClassLoader().getResource(
-            "org/bitbucket/hronom/game/cards/gui/" + fileName
-        );
+        URL url = this.getClass().getResource(fileName);
         ImageIcon imageIcon = new ImageIcon(url);
         return imageIcon.getImage();
     }
