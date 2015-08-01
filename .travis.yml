@@ -12,7 +12,8 @@ after_success:
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: poker-helper-gui/dist/poker-helper-gui-0.0.1-bin.zip
+  file:
+       - "poker-helper-gui/dist/poker-helper-gui-1.0.1-bin.zip"
   skip_cleanup: true
   on:
     tags: true
