@@ -9,7 +9,9 @@ before_install:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-script: APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
+env:
+  global:
+   - APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.2:evaluate -Dexpression=project.version | egrep -v '^\[|Downloading:' | sed 's/[^0-9\.]//g' | awk 1 ORS='')
 
 deploy:
   provider: releases
