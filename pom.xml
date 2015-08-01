@@ -25,6 +25,13 @@
         <url>https://github.com/Hronom/poker-helper/issues</url>
     </issueManagement>
 
+    <developers>
+        <developer>
+            <name>Eugene Tenkaev</name>
+            <email>hronom@gmail.com</email>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
