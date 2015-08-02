@@ -5,7 +5,7 @@ before_install:
   - sudo apt-get update -y
   - sudo apt-get install -y python-software-properties build-essential
   - sudo apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
-  - export APP_VERSION=$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v "^\[")
+  - export APP_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.2:evaluate -Dexpression=project.version | egrep -v '^\[|Downloading:' | sed 's/[^0-9\.]//g' | awk 1 ORS='')
   - echo $APP_VERSION
   - echo $APP_VERSION
 
