@@ -5,13 +5,13 @@ before_install:
   - sudo apt-get update -y
   - sudo apt-get install -y python-software-properties build-essential
   - sudo apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
-  - export APP_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.4.0:exec)
-  - echo $APP_VERSION
-  - echo $APP_VERSION
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
+env:
+  global:
+   - APP_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.4.0:exec)
 
 deploy:
   provider: releases
