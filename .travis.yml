@@ -5,13 +5,21 @@ before_install:
   - sudo apt-get update -y
   - sudo apt-get install -y python-software-properties build-essential
   - sudo apt-get install -y libgd2-xpm ia32-libs ia32-libs-multiarch
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
+  
 env:
   global:
    - APP_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.4.0:exec)
+   
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/19792f1aab7f7585c739
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: false     # default: false
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 deploy:
   provider: releases
